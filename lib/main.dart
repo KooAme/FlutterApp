@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false, //우측상단 DEBUG없애기
       title: 'Koobori',
-      home: Grade(),
+      home: MyPage(),
     );
   }
 }
@@ -19,8 +19,9 @@ class Grade extends StatelessWidget {
   const Grade({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) { //빌드메소드는 위젯타입 , 컨텍스트는 인자
+    return Scaffold( //scaffold 위젯
+      //즉,이 빌드함수는 컨텍스트라는 인자값을 대입한 스케프폴더라는 위젯을 리턴한다는 의미
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: const Text("Koobori"),
@@ -52,6 +53,12 @@ class Grade extends StatelessWidget {
                   backgroundImage: AssetImage('assets/bori.png'),
                   backgroundColor: Colors.white,
                 ),
+                otherAccountsPictures: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/bori.png'),
+                    backgroundColor: Colors.white,
+                  )
+                ],//복수로 끝남
                 accountName: const Text('Koobori'),
                 accountEmail: const Text('koobori@gmail.com'),
                 onDetailsPressed: (){ //메일옆 화살표
@@ -65,6 +72,33 @@ class Grade extends StatelessWidget {
                   )
                 ),
               ),
+              ListTile(
+                leading: Icon(Icons.home,
+                color: Colors.grey[850],)//icon가져오기 = leading
+                ,title: Text('Home'),
+                onTap: (){
+                  print('Home is clicked');//스플래쉬 효과는 onTap의 기본
+                },
+                trailing: Icon(Icons.add),//뒤쳐지고 질질 끌려간다, 옆쪽에 + 추가
+              ),
+              ListTile(
+                leading: Icon(Icons.settings,
+                  color: Colors.grey[850],)//icon가져오기 = leading
+                ,title: Text('setting'),
+                onTap: (){
+                  print('Setting is clicked');//스플래쉬 효과는 onTap의 기본
+                },
+                trailing: Icon(Icons.add),//뒤쳐지고 질질 끌려간다, 옆쪽에 + 추가
+              ),
+              ListTile(
+                leading: Icon(Icons.question_answer,
+                  color: Colors.grey[850],)//icon가져오기 = leading
+                ,title: Text('Q&A'),
+                onTap: (){
+                  print('Q&A is clicked');//스플래쉬 효과는 onTap의 기본
+                },
+                trailing: Icon(Icons.add),//뒤쳐지고 질질 끌려간다, 옆쪽에 + 추가
+              )
             ],
           ),
         ),
@@ -173,10 +207,38 @@ class Grade extends StatelessWidget {
                     radius: 40.0,
                     backgroundColor: Colors.blue[200],
                   ),
-                )
+                ),
             ],
           ),
         ),
+    );
+  }
+}
+
+class MyPage extends StatelessWidget {
+  const MyPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Snack Bar'),
+        centerTitle: true,
+      ),
+      body: Builder(builder: (BuildContext ctx) {
+        return Center(
+          child: FlatButton(
+          child: const Text('Show me',
+          style: TextStyle(
+              color: Colors.white
+          ),
+        ),
+        color: Colors.red,
+        onPressed: () {
+        Scaffold.of(context).showSnackBar(const SnackBar(content: Text('Hello'),
+        ));
+        },
+      },),
     );
   }
 }
